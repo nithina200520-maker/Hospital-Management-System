@@ -1,0 +1,6 @@
+{
+  "name": "Nithin Hospital Management System",
+  "description": "Full-stack hospital management dashboard using React and Node.js with built-in interactive MongoDB and Mongoose query engines.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

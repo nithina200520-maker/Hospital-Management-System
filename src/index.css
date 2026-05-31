@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+@layer base {
+  /* Dynamic layout transitions for backgrounds and borders */
+  html, body, #root, #hospital-app-root {
+    transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Custom premium scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* ----------------------------------------------------
+   Universal Dark Mode Overrides
+   Triggered dynamically when .dark is on html / document root
+   ---------------------------------------------------- */
+
+.dark body {
+  background-color: #0b1329;
+  color: #f1f5f9;
+}
+
+/* Dashboard App Root */
+.dark #hospital-app-root {
+  background-color: #090e1f;
+  color: #f1f5f9;
+}
+
+/* Top header and elements styling */
+.dark header {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+.dark main {
+  background-color: #0f172a !important;
+}
+
+/* Card overrides */
+.dark .bg-white {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+.dark .bg-slate-50 {
+  background-color: #0d1527 !important;
+}
+
+.dark .bg-slate-100 {
+  background-color: #090e1f !important;
+}
+
+/* Borders */
+.dark .border-slate-200,
+.dark .border-slate-100,
+.dark .border-blue-200 {
+  border-color: #334155 !important;
+}
+
+/* Active background states block */
+.dark .bg-slate-50\/50,
+.dark .hover\:bg-slate-50\/50:hover,
+.dark .hover\:bg-slate-50:hover,
+.dark .bg-slate-100\/30 {
+  background-color: #27354a !important;
+}
+
+.dark .even\:bg-slate-50:nth-child(even),
+.dark .even\:bg-slate-50\/50:nth-child(even) {
+  background-color: #111a2e !important;
+}
+
+/* Typography contrast improvements */
+.dark .text-slate-900 {
+  color: #f8fafc !important;
+}
+
+.dark .text-slate-800 {
+  color: #f1f5f9 !important;
+}
+
+.dark .text-slate-700 {
+  color: #cbd5e1 !important;
+}
+
+.dark .text-slate-600 {
+  color: #94a3b8 !important;
+}
+
+.dark .text-slate-500,
+.dark .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+.dark .text-slate-500.uppercase {
+  color: #cbd5e1 !important;
+}
+
+/* Hover transitions list hover colors */
+.dark .hover\:bg-slate-50:hover,
+.dark .hover\:bg-slate-100:hover,
+.dark .hover\:bg-slate-50\/50:hover {
+  background-color: #2e3d52 !important;
+  color: #ffffff !important;
+}
+
+/* Input boxes & drop-down selects fields style */
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: #111a2e !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #64748b !important;
+}
+
+.dark input:focus,
+.dark select:focus,
+.dark textarea:focus {
+  border-color: #3b82f6 !important;
+  --tw-ring-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+.dark option {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+/* Spacers and lists lines */
+.dark .divide-slate-100 > * + *,
+.dark .divide-slate-200 > * + * {
+  border-color: #334155 !important;
+}
+
+/* Badges and tags adjustments */
+.dark .bg-slate-100 {
+  background-color: #111a2e !important;
+  color: #f8fafc !important;
+}
+
+.dark .bg-blue-50 {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  color: #60a5fa !important;
+}
+
+.dark .bg-teal-50 {
+  background-color: rgba(20, 184, 166, 0.15) !important;
+  color: #2dd4bf !important;
+}
+
+.dark .bg-emerald-50 {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  color: #34d399 !important;
+}
+
+.dark .bg-amber-50 {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  color: #fbbf24 !important;
+}
+
+.dark .text-blue-600 {
+  color: #60a5fa !important;
+}
+
+.dark .text-teal-600 {
+  color: #2dd4bf !important;
+}
+
+.dark .text-emerald-600 {
+  color: #34d399 !important;
+}
+
+.dark .text-amber-600 {
+  color: #fbbf24 !important;
+}
+
+/* Modals overlays background dark tint */
+.dark .bg-black\/50,
+.dark .fixed.inset-0.bg-black\/40 {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+}
+
+/* Document / Patient File specific dark view tags */
+.dark .bg-slate-50.rounded-xl.border.border-slate-200.p-6 {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+.dark .bg-slate-100.p-3.rounded-md.font-mono {
+  background-color: #0b1329 !important;
+  color: #fbbf24 !important;
+}
+
+/* Mongo console / DB queries styling enhancements */
+.dark .bg-slate-900.text-slate-100 {
+  background-color: #0b1329 !important;
+}
+
+.dark .bg-slate-950 {
+  background-color: #060a14 !important;
+}
+
+.dark .border-slate-800 {
+  border-color: #1e293b !important;
+}
+
+.dark pre, .dark .font-mono {
+  color: #f1f5f9 !important;
+}
+
+/* Table elements grid */
+.dark table {
+  border-color: #334155 !important;
+}
+.dark th {
+  background-color: #111a2e !important;
+  color: #cbd5e1 !important;
+  border-color: #334155 !important;
+}
+.dark td {
+  border-color: #334155 !important;
+}
+
+/* Form modal header text consistency */
+.dark .text-slate-900 {
+  color: #ffffff !important;
+}
+
+/* Dropdown popover list alignment */
+.dark #notifications-dropdown {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}

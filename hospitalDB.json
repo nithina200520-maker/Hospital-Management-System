@@ -1,0 +1,290 @@
+{
+  "patients": [
+    {
+      "_id": "8ca7cf2c812cacda739041a4",
+      "patientName": "John Doe",
+      "patientId": 1001,
+      "age": 45,
+      "gender": "Male",
+      "phone": "+1 (555) 8371",
+      "address": "123 Elm St, Boston",
+      "bloodGroup": "A+",
+      "createdAt": "2026-01-15T10:30:00.000Z"
+    },
+    {
+      "_id": "3fd9922f838f70bdff6d61fe",
+      "patientName": "Jane Smith",
+      "patientId": 1002,
+      "age": 32,
+      "gender": "Female",
+      "phone": "+1 (555) 4892",
+      "address": "456 Oak St, Boston",
+      "bloodGroup": "O-",
+      "createdAt": "2026-02-10T14:15:00.000Z"
+    },
+    {
+      "_id": "baa2081b8bd37eb8fe17ec6f",
+      "patientName": "Michael Johnson",
+      "patientId": 1003,
+      "age": 61,
+      "gender": "Male",
+      "phone": "+1 (555) 9021",
+      "address": "789 Pine Rd, Cambridge",
+      "bloodGroup": "B+",
+      "createdAt": "2026-02-28T09:00:00.000Z"
+    },
+    {
+      "_id": "9f2594c12a122923188fe1e0",
+      "patientName": "Emily Davis",
+      "patientId": 1004,
+      "age": 29,
+      "gender": "Female",
+      "phone": "+1 (555) 2311",
+      "address": "101 Maple Ave, Somerville",
+      "bloodGroup": "AB+",
+      "createdAt": "2026-03-05T11:45:00.000Z"
+    },
+    {
+      "_id": "791c578966bfd3d9f9788cab",
+      "patientName": "William Brown",
+      "patientId": 1005,
+      "age": 50,
+      "gender": "Male",
+      "phone": "+1 (555) 7743",
+      "address": "202 Birch Ln, Brookline",
+      "bloodGroup": "A-",
+      "createdAt": "2026-03-12T08:20:00.000Z"
+    },
+    {
+      "_id": "06cb920dd1a81d661f02d87d",
+      "patientName": "Linda Wilson",
+      "patientId": 1006,
+      "age": 38,
+      "gender": "Female",
+      "phone": "+1 (555) 1234",
+      "address": "303 Cedar Dr, Quincy",
+      "bloodGroup": "O+",
+      "createdAt": "2026-03-24T16:00:00.000Z"
+    },
+    {
+      "_id": "b65bca0f57bd9eebeff156f3",
+      "patientName": "David Miller",
+      "patientId": 1007,
+      "age": 19,
+      "gender": "Male",
+      "phone": "+1 (555) 5432",
+      "address": "404 Spruce St, Newton",
+      "bloodGroup": "B+",
+      "createdAt": "2026-04-02T13:10:00.000Z"
+    },
+    {
+      "_id": "c332c7689bd5ec2caf46de72",
+      "patientName": "Barbara Taylor",
+      "patientId": 1008,
+      "age": 67,
+      "gender": "Female",
+      "phone": "+1 (555) 7890",
+      "address": "505 Willow Rd, Medford",
+      "bloodGroup": "A+",
+      "createdAt": "2026-04-18T10:00:00.000Z"
+    },
+    {
+      "_id": "e897945c6cba6e1d9d0a25fb",
+      "patientName": "James Anderson",
+      "patientId": 1009,
+      "age": 42,
+      "gender": "Male",
+      "phone": "+1 (555) 9876",
+      "address": "606 Poplar Ave, Everett",
+      "bloodGroup": "AB-",
+      "createdAt": "2026-05-01T15:30:00.000Z"
+    },
+    {
+      "_id": "8e7ee6638ad9bb3430f9c22e",
+      "patientName": "Sophia Thomas",
+      "patientId": 1010,
+      "age": 25,
+      "gender": "Female",
+      "phone": "+1 (555) 4567",
+      "address": "707 Ash Dr, Chelsea",
+      "bloodGroup": "O+",
+      "createdAt": "2026-05-15T09:40:00.000Z"
+    }
+  ],
+  "doctors": [
+    {
+      "_id": "839cfa43378989fb9859f547",
+      "doctorName": "Dr. Elizabeth Blackwell",
+      "doctorId": 201,
+      "specialization": "Cardiology",
+      "experience": 15,
+      "phone": "+1 (555) 0192",
+      "availability": "Mon, Wed, Fri"
+    },
+    {
+      "_id": "4a6548966ffe44297b2331da",
+      "doctorName": "Dr. René Laennec",
+      "doctorId": 202,
+      "specialization": "Pediatrics",
+      "experience": 8,
+      "phone": "+1 (555) 0122",
+      "availability": "Tue, Thu"
+    },
+    {
+      "_id": "52ec426bb668b81878aed37b",
+      "doctorName": "Dr. Edward Jenner",
+      "doctorId": 203,
+      "specialization": "General Medicine",
+      "experience": 22,
+      "phone": "+1 (555) 0153",
+      "availability": "Mon, Tue, Wed, Thu, Fri"
+    },
+    {
+      "_id": "7d5aba39c24e93532b49a3c0",
+      "doctorName": "Dr. Virginia Apgar",
+      "doctorId": 204,
+      "specialization": "Anesthesiology",
+      "experience": 12,
+      "phone": "+1 (555) 0164",
+      "availability": "Mon, Thu"
+    },
+    {
+      "_id": "ba96bbf7f43ee390158bdfaf",
+      "doctorName": "Dr. Sigmund Freud",
+      "doctorId": 205,
+      "specialization": "Neurology",
+      "experience": 18,
+      "phone": "+1 (555) 0178",
+      "availability": "Wed, Fri"
+    }
+  ],
+  "appointments": [
+    {
+      "_id": "bc59a5829f88b6f01a17977a",
+      "patientId": "8ca7cf2c812cacda739041a4",
+      "doctorId": "839cfa43378989fb9859f547",
+      "appointmentDate": "2026-05-20T10:00:00.000Z",
+      "status": "Completed"
+    },
+    {
+      "_id": "5a747f1cb35dea35bd409c06",
+      "patientId": "3fd9922f838f70bdff6d61fe",
+      "doctorId": "4a6548966ffe44297b2331da",
+      "appointmentDate": "2026-05-22T14:30:00.000Z",
+      "status": "Completed"
+    },
+    {
+      "_id": "802941219f398b1f03423859",
+      "patientId": "baa2081b8bd37eb8fe17ec6f",
+      "doctorId": "839cfa43378989fb9859f547",
+      "appointmentDate": "2026-05-25T11:00:00.000Z",
+      "status": "Completed"
+    },
+    {
+      "_id": "b4a10b2e1366f37929d004b8",
+      "patientId": "9f2594c12a122923188fe1e0",
+      "doctorId": "52ec426bb668b81878aed37b",
+      "appointmentDate": "2026-05-28T09:30:00.000Z",
+      "status": "Completed"
+    },
+    {
+      "_id": "455e7c7c064fc38048b990c7",
+      "patientId": "791c578966bfd3d9f9788cab",
+      "doctorId": "ba96bbf7f43ee390158bdfaf",
+      "appointmentDate": "2026-05-29T15:00:00.000Z",
+      "status": "Scheduled"
+    },
+    {
+      "_id": "dd30d13d30dea6c050a3182a",
+      "patientId": "06cb920dd1a81d661f02d87d",
+      "doctorId": "52ec426bb668b81878aed37b",
+      "appointmentDate": "2026-05-30T10:30:00.000Z",
+      "status": "Scheduled"
+    },
+    {
+      "_id": "f1ac27ed2a2cf0f73ace8e7f",
+      "patientId": "b65bca0f57bd9eebeff156f3",
+      "doctorId": "4a6548966ffe44297b2331da",
+      "appointmentDate": "2026-05-30T16:00:00.000Z",
+      "status": "Scheduled"
+    },
+    {
+      "_id": "f8c41b9b1a8b15ecc0a3d4a3",
+      "patientId": "c332c7689bd5ec2caf46de72",
+      "doctorId": "839cfa43378989fb9859f547",
+      "appointmentDate": "2026-06-01T11:30:00.000Z",
+      "status": "Scheduled"
+    }
+  ],
+  "treatments": [
+    {
+      "_id": "3fc70ace350797d0b96d7fa6",
+      "patientId": "8ca7cf2c812cacda739041a4",
+      "doctorId": "839cfa43378989fb9859f547",
+      "diagnosis": "Mild Hypertension",
+      "prescription": "Lisinopril 10mg daily, low sodium diet",
+      "treatmentDate": "2026-05-20T10:30:00.000Z"
+    },
+    {
+      "_id": "7d601d5d06f3fcb6e43a307b",
+      "patientId": "3fd9922f838f70bdff6d61fe",
+      "doctorId": "4a6548966ffe44297b2331da",
+      "diagnosis": "Seasonal Allergies",
+      "prescription": "Cetirizine 10mg daily, saline nasal spray",
+      "treatmentDate": "2026-05-22T15:00:00.000Z"
+    },
+    {
+      "_id": "e85782871984ca7523f743aa",
+      "patientId": "baa2081b8bd37eb8fe17ec6f",
+      "doctorId": "839cfa43378989fb9859f547",
+      "diagnosis": "Stable Angina",
+      "prescription": "Amlodipine 5mg daily, Nitroglycerin sublingual PRN",
+      "treatmentDate": "2026-05-25T11:45:00.000Z"
+    },
+    {
+      "_id": "e5b44f83cb7b792275109c9b",
+      "patientId": "9f2594c12a122923188fe1e0",
+      "doctorId": "52ec426bb668b81878aed37b",
+      "diagnosis": "Acute Bronchitis",
+      "prescription": "Amoxicillin 500mg TID for 7 days, Albuterol inhaler",
+      "treatmentDate": "2026-05-28T10:15:00.000Z"
+    }
+  ],
+  "billing": [
+    {
+      "_id": "5e1aba7065ef78c734a46cd7",
+      "patientId": "8ca7cf2c812cacda739041a4",
+      "totalAmount": 150,
+      "paymentStatus": "Paid",
+      "paymentDate": "2026-05-20T11:00:00.000Z"
+    },
+    {
+      "_id": "214a90ccbefbd2204457581c",
+      "patientId": "3fd9922f838f70bdff6d61fe",
+      "totalAmount": 95,
+      "paymentStatus": "Paid",
+      "paymentDate": "2026-05-22T15:30:00.000Z"
+    },
+    {
+      "_id": "87adb6033c42d6fd57bc64b2",
+      "patientId": "baa2081b8bd37eb8fe17ec6f",
+      "totalAmount": 320,
+      "paymentStatus": "Pending",
+      "paymentDate": ""
+    },
+    {
+      "_id": "fa722ea0195e7cacff34c4fa",
+      "patientId": "9f2594c12a122923188fe1e0",
+      "totalAmount": 180,
+      "paymentStatus": "Paid",
+      "paymentDate": "2026-05-28T10:45:00.000Z"
+    },
+    {
+      "_id": "3553ac7211a464bf8caf91b1",
+      "patientId": "791c578966bfd3d9f9788cab",
+      "totalAmount": 210,
+      "paymentStatus": "Pending",
+      "paymentDate": ""
+    }
+  ]
+}
