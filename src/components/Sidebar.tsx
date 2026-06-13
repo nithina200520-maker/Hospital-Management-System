@@ -9,9 +9,8 @@ import {
   Database,
   User,
   Pill,
-  FlaskConical,
   Bed,
-  Flame,
+  Droplet,
   Bot,
   Settings
 } from 'lucide-react';
@@ -32,9 +31,8 @@ export function Sidebar({ activeTab, setActiveTab, userRole, setUserRole }: Side
     { id: 'treatments', label: 'Treatments & History', icon: FileText, roles: ['Admin', 'Doctor'] },
     { id: 'billing', label: 'Billing & Invoices', icon: IndianRupee, roles: ['Admin', 'Receptionist'] },
     { id: 'pharmacy', label: 'Pharmacy Management', icon: Pill, roles: ['Admin', 'Doctor', 'Receptionist'] },
-    { id: 'laboratory', label: 'Laboratory Center', icon: FlaskConical, roles: ['Admin', 'Doctor', 'Receptionist'] },
     { id: 'beds', label: 'Bed & Ward Allocator', icon: Bed, roles: ['Admin', 'Doctor', 'Receptionist'] },
-    { id: 'emergency', label: 'Emergency Room (ER)', icon: Flame, roles: ['Admin', 'Doctor', 'Receptionist'] },
+    { id: 'blood-donor', label: 'Blood Donor Registry', icon: Droplet, roles: ['Admin', 'Doctor', 'Receptionist'] },
     { id: 'chatbot', label: 'AI Clinical Assistant', icon: Bot, roles: ['Admin', 'Doctor', 'Receptionist'] },
     { id: 'settings', label: 'Settings', icon: Settings, roles: ['Admin', 'Doctor', 'Receptionist'] },
     { id: 'database', label: 'MongoDB Console', icon: Database, roles: ['Admin'] }
@@ -51,7 +49,7 @@ export function Sidebar({ activeTab, setActiveTab, userRole, setUserRole }: Side
   };
 
   return (
-    <aside className="w-64 bg-slate-900 text-slate-100 flex flex-col justify-between h-full shadow-lg border-r border-slate-800" id="app-sidebar">
+    <aside className="w-64 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-950 text-slate-100 flex flex-col justify-between h-full shadow-2xl border-r border-slate-700" id="app-sidebar">
       <div>
         {/* Hospital Branding */}
         <div className="p-6 border-b border-slate-800 flex items-center space-x-3">
@@ -97,10 +95,10 @@ export function Sidebar({ activeTab, setActiveTab, userRole, setUserRole }: Side
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-150 ${
+                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
                   isActive 
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-900/30 font-bold' 
-                    : 'text-slate-400 hover:bg-slate-800 hover:text-white'
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg shadow-blue-900/50 font-bold scale-[1.02]' 
+                    : 'text-slate-400 hover:bg-slate-800/60 hover:text-white hover:shadow-md'
                 }`}
                 id={`sidebar-tab-${tab.id}`}
               >

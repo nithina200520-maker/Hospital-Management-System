@@ -7,6 +7,7 @@ export interface Patient {
   phone: string;
   address: string;
   bloodGroup: string;
+  diseases: string;
   createdAt: string;
 }
 

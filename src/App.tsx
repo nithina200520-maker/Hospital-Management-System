@@ -8,9 +8,8 @@ import { TreatmentsTab } from './components/TreatmentsTab';
 import { BillingTab } from './components/BillingTab';
 import { MongoPlayground } from './components/MongoPlayground';
 import { PharmacyTab } from './components/PharmacyTab';
-import { LaboratoryTab } from './components/LaboratoryTab';
 import { BedsTab } from './components/BedsTab';
-import { EmergencyTab } from './components/EmergencyTab';
+import { BloodDonorTab } from './components/BloodDonorTab';
 import { ChatbotTab } from './components/ChatbotTab';
 import { SettingsTab } from './components/SettingsTab';
 import { DatabaseStats, Appointment } from './types';
@@ -104,7 +103,7 @@ export default function App() {
   });
 
   return (
-    <div className="flex h-screen bg-slate-100 font-sans text-slate-800 overflow-hidden" id="hospital-app-root">
+    <div className="flex h-screen bg-gradient-to-br from-slate-100 via-slate-50 to-blue-50 font-sans text-slate-800 overflow-hidden" id="hospital-app-root">
       
       {/* Dynamic Left Sidebar Navigation */}
       <Sidebar 
@@ -118,7 +117,7 @@ export default function App() {
       <main className="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50">
         
         {/* Top Header Panel bar representing clean architecture */}
-        <header className="bg-white border-b border-slate-200 h-16 min-h-16 flex items-center justify-between px-8 shadow-xs">
+        <header className="bg-gradient-to-r from-white via-slate-50 to-blue-50 dark:from-slate-900 dark:via-slate-800 dark:to-blue-950 border-b border-blue-200 dark:border-blue-900 h-16 min-h-16 flex items-center justify-between px-8 shadow-md dark:shadow-lg">
           <div className="flex items-center space-x-3">
             <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-ping"></span>
             <span className="text-xs font-mono font-bold uppercase tracking-widest text-slate-400">Database Context:</span>
@@ -277,48 +276,7 @@ export default function App() {
               {/* Stats Analytics Grid */}
               <StatsGrid stats={stats} triggerRefresh={fetchStats} onTabChange={setActiveTab} />
 
-              {/* Quick instructions and documentation for playground */}
-              <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
-                <div className="flex items-center space-x-2">
-                  <Sparkles className="h-5 w-5 text-blue-600 flex-shrink-0" />
-                  <h3 className="font-extrabold text-slate-900 text-sm">Skills & Operation Guide</h3>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-600 font-semibold">
-                  <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
-                    <p className="font-extrabold text-slate-800 text-[13px] border-b pb-1.5 mb-2 flex items-center space-x-1.5">
-                      <span>🔑 Role Permissions</span>
-                    </p>
-                    <ul className="space-y-1.5 leading-relaxed text-slate-500">
-                      <li>• <strong className="text-slate-700">Admin</strong> has absolute schema modification rights.</li>
-                      <li>• <strong className="text-slate-700">Doctor</strong> has access to log medical history profiles.</li>
-                      <li>• <strong className="text-slate-700">Receptionist</strong> operates scheduler and drafts invoices.</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
-                    <p className="font-extrabold text-slate-800 text-[13px] border-b pb-1.5 mb-2 flex items-center space-x-1.5">
-                      <span>🏷️ Database Indexes</span>
-                    </p>
-                    <p className="text-slate-500 leading-normal mb-1.5">
-                      Optimize lookups matching clinical tags & times:
-                    </p>
-                    <code className="block bg-slate-200 p-1.5 rounded-md text-[10px] font-mono leading-tight whitespace-pre-wrap">
-                      db.patients.createIndex({"{"} patientName: 1 {"}"});
-                      db.doctors.createIndex({"{"} doctorName: 1, specialization: 1 {"}"});
-                    </code>
-                  </div>
-
-                  <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
-                    <p className="font-extrabold text-slate-800 text-[13px] border-b pb-1.5 mb-2 flex items-center space-x-1.5">
-                      <span>📊 Advanced Analytics</span>
-                    </p>
-                    <p className="text-slate-500 leading-normal mb-1">
-                      Check standard Mongoose code blocks in the <strong className="text-blue-600">MongoDB Console</strong> tab to watch aggregation pipeline filters run!
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
           )}
 
@@ -346,16 +304,12 @@ export default function App() {
             <PharmacyTab userRole={userRole} />
           )}
 
-          {activeTab === 'laboratory' && (
-            <LaboratoryTab userRole={userRole} />
-          )}
-
           {activeTab === 'beds' && (
             <BedsTab userRole={userRole} />
           )}
 
-          {activeTab === 'emergency' && (
-            <EmergencyTab userRole={userRole} />
+          {activeTab === 'blood-donor' && (
+            <BloodDonorTab userRole={userRole} />
           )}
 
           {activeTab === 'chatbot' && (

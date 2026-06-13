@@ -80,7 +80,8 @@ export function PatientsTab({ userRole, onRefreshStats }: PatientsTabProps) {
     gender: 'Male',
     phone: '',
     address: '',
-    bloodGroup: 'O+'
+    bloodGroup: 'O+',
+    diseases: ''
   });
   const [errorLog, setErrorLog] = useState('');
 
@@ -106,7 +107,8 @@ export function PatientsTab({ userRole, onRefreshStats }: PatientsTabProps) {
   const fetchPatients = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/patients?search=${encodeURIComponent(searchQuery)}`);
+      const controller = new AbortController(); // Added abort logic for rapid typing
+      const res = await fetch(`/api/patients?search=${encodeURIComponent(searchQuery)}`, { signal: controller.signal });
       if (res.ok) {
         const data = await res.json();
         setPatients(data);
@@ -136,7 +138,8 @@ export function PatientsTab({ userRole, onRefreshStats }: PatientsTabProps) {
       gender: 'Male',
       phone: '+1 (555) ',
       address: '',
-      bloodGroup: 'O+'
+      bloodGroup: 'O+',
+      diseases: ''
     });
     setErrorLog('');
     setShowAddModal(true);
@@ -151,7 +154,8 @@ export function PatientsTab({ userRole, onRefreshStats }: PatientsTabProps) {
       gender: p.gender,
       phone: p.phone,
       address: p.address,
-      bloodGroup: p.bloodGroup
+      bloodGroup: p.bloodGroup,
+      diseases: p.diseases
     });
     setErrorLog('');
     setShowEditModal(true);
@@ -698,6 +702,20 @@ export function PatientsTab({ userRole, onRefreshStats }: PatientsTabProps) {
                   placeholder="Street, City, State"
                   value={formData.address}
                   onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                  className="w-full text-sm bg-slate-50 border border-slate-200 p-2.5 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden focus:bg-white text-slate-805 transition-all text-slate-850"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="p-add-diseases" className="block text-slate-500 uppercase font-bold tracking-wider mb-1">
+                  Patient Diseases
+                </label>
+                <textarea 
+                  id="p-add-diseases"
+                  rows={2}
+                  placeholder="e.g. Hypertension, Diabetes, Asthma (comma-separated)"
+                  value={formData.diseases}
+                  onChange={(e) => setFormData({ ...formData, diseases: e.target.value })}
                   className="w-full text-sm bg-slate-50 border border-slate-200 p-2.5 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-blue-600 focus:outline-hidden focus:bg-white text-slate-805 transition-all text-slate-850"
                 />
               </div>

@@ -2,7 +2,7 @@
   "patients": [
     {
       "_id": "8ca7cf2c812cacda739041a4",
-      "patientName": "John Doe",
+      "patientName": "JAnush MN",
       "patientId": 1001,
       "age": 45,
       "gender": "Male",
@@ -13,10 +13,10 @@
     },
     {
       "_id": "3fd9922f838f70bdff6d61fe",
-      "patientName": "Jane Smith",
+      "patientName": "Akash RJ",
       "patientId": 1002,
       "age": 32,
-      "gender": "Female",
+      "gender": "Male",
       "phone": "+1 (555) 4892",
       "address": "456 Oak St, Boston",
       "bloodGroup": "O-",
@@ -35,10 +35,10 @@
     },
     {
       "_id": "9f2594c12a122923188fe1e0",
-      "patientName": "Emily Davis",
+      "patientName": "Davidas",
       "patientId": 1004,
       "age": 29,
-      "gender": "Female",
+      "gender": "male",
       "phone": "+1 (555) 2311",
       "address": "101 Maple Ave, Somerville",
       "bloodGroup": "AB+",
@@ -46,7 +46,7 @@
     },
     {
       "_id": "791c578966bfd3d9f9788cab",
-      "patientName": "William Brown",
+      "patientName": "Gowtham KR",
       "patientId": 1005,
       "age": 50,
       "gender": "Male",
@@ -57,10 +57,10 @@
     },
     {
       "_id": "06cb920dd1a81d661f02d87d",
-      "patientName": "Linda Wilson",
+      "patientName": "Lingu",
       "patientId": 1006,
       "age": 38,
-      "gender": "Female",
+      "gender": "male",
       "phone": "+1 (555) 1234",
       "address": "303 Cedar Dr, Quincy",
       "bloodGroup": "O+",

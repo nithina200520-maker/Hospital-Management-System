@@ -10,7 +10,8 @@ import {
   Calendar,
   X,
   AlertTriangle,
-  Loader2
+  Loader2,
+  Trash2
 } from 'lucide-react';
 
 interface DoctorsTabProps {
@@ -24,6 +25,9 @@ export function DoctorsTab({ userRole, onRefreshStats }: DoctorsTabProps) {
   const [specFilter, setSpecFilter] = useState('');
   const [sortExperience, setSortExperience] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [doctorToDelete, setDoctorToDelete] = useState<Doctor | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   const [formData, setFormData] = useState({
     doctorName: '',
@@ -114,6 +118,48 @@ export function DoctorsTab({ userRole, onRefreshStats }: DoctorsTabProps) {
       }
     } catch (error: any) {
       setErrorLog(error.message || 'Server error.');
+    }
+  };
+
+  const handleDeleteClick = (doctor: Doctor) => {
+    setDoctorToDelete(doctor);
+    setShowDeleteConfirm(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!doctorToDelete || userRole !== 'Admin') {
+      alert("Role Permission Violation: Only users logged in with the 'Admin' role can remove medical staff.");
+      setShowDeleteConfirm(false);
+      return;
+    }
+
+    setDeleting(true);
+    try {
+      const response = await fetch(`/api/doctors/${doctorToDelete._id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (!response.ok) {
+        let errorMsg = 'Failed to delete doctor.';
+        try {
+          const result = await response.json();
+          errorMsg = result.error || errorMsg;
+        } catch (e) {
+          // Response wasn't JSON
+        }
+        alert(errorMsg);
+      } else {
+        const result = await response.json();
+        setShowDeleteConfirm(false);
+        setDoctorToDelete(null);
+        fetchDoctors();
+        onRefreshStats();
+      }
+    } catch (error: any) {
+      alert(error.message || 'Server error while deleting doctor.');
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -242,7 +288,19 @@ export function DoctorsTab({ userRole, onRefreshStats }: DoctorsTabProps) {
                   <CheckCircle className="h-4 w-4 text-emerald-500" />
                   <span className="font-semibold text-slate-500">Active Duty</span>
                 </div>
-                <span className="font-mono text-[9px] text-slate-400 uppercase">MongoDB record</span>
+                <div className="flex items-center space-x-2">
+                  {userRole === 'Admin' && (
+                    <button
+                      onClick={() => handleDeleteClick(d)}
+                      className="p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-red-300"
+                      title="Remove doctor"
+                      aria-label="Remove doctor"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  )}
+                  <span className="font-mono text-[9px] text-slate-400 uppercase">MongoDB record</span>
+                </div>
               </div>
 
             </div>
@@ -385,6 +443,70 @@ export function DoctorsTab({ userRole, onRefreshStats }: DoctorsTabProps) {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE CONFIRMATION DIALOG */}
+      {showDeleteConfirm && doctorToDelete && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 transition-opacity"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="delete-modal-title"
+          aria-describedby="delete-modal-desc"
+        >
+          <div className="bg-slate-900 rounded-xl shadow-xl w-full max-w-sm border border-slate-700 overflow-hidden">
+            <div className="bg-red-900/30 border-b border-red-800 px-6 py-4 flex items-start gap-3">
+              <AlertTriangle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
+              <div>
+                <h3 id="delete-modal-title" className="font-bold text-base text-red-400">Remove Doctor</h3>
+                <p id="delete-modal-desc" className="text-xs text-red-500/80 mt-1">This action cannot be undone.</p>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-4">
+              <p className="text-sm text-slate-300">
+                Are you sure you want to remove <span className="font-bold text-slate-100">{doctorToDelete.doctorName}</span> from the medical roster?
+              </p>
+
+              <div className="bg-slate-800 border border-slate-700 rounded-lg p-3 text-xs space-y-1 text-slate-400">
+                <p><span className="font-semibold text-slate-300">ID:</span> {doctorToDelete.doctorId}</p>
+                <p><span className="font-semibold text-slate-300">Specialization:</span> {doctorToDelete.specialization}</p>
+              </div>
+
+              <div className="pt-2 border-t border-slate-700 flex items-center justify-end space-x-3">
+                <button 
+                  type="button" 
+                  onClick={() => {
+                    setShowDeleteConfirm(false);
+                    setDoctorToDelete(null);
+                  }}
+                  disabled={deleting}
+                  className="px-4 py-2 border border-slate-600 text-slate-400 rounded-lg text-sm hover:bg-slate-800 focus:ring-2 focus:ring-slate-500 focus:outline-hidden transition-all disabled:opacity-50"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="button"
+                  onClick={handleConfirmDelete}
+                  disabled={deleting}
+                  className="px-4 py-2 bg-red-600 hover:bg-red-700 disabled:bg-red-500 text-white font-bold rounded-lg text-sm focus:ring-2 focus:ring-red-600 focus:ring-offset-2 focus:ring-offset-slate-900 focus:outline-hidden transition-all flex items-center space-x-2 disabled:opacity-50"
+                >
+                  {deleting ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      <span>Removing...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Trash2 className="h-4 w-4" />
+                      <span>Remove Doctor</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}

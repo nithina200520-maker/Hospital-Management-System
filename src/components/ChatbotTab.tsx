@@ -39,7 +39,7 @@ export function ChatbotTab() {
     if (!userPrompt.trim()) return;
 
     const userMsg: ChatMessage = {
-      id: String(Date.now()),
+      id: crypto.randomUUID(), // More robust unique ID generation
       sender: 'user',
       text: userPrompt,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })

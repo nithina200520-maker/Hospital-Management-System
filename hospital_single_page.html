@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nithin Hospital Management System</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+        }
+        .blood-type-badge {
+            display: inline-block;
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: 1px solid #fca5a5;
+        }
+        .badge-available {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Blood Donor Component
+        function BloodDonorTab() {
+            const [donors, setDonors] = useState([
+                { _id: '1', donorName: 'Rajesh Kumar', donorId: 501, bloodType: 'O+', phone: '+91 9876543210', lastDonationDate: '2026-05-15', donationCount: 8, status: 'Available', cost: 500 },
+                { _id: '2', donorName: 'Priya Singh', donorId: 502, bloodType: 'B+', phone: '+91 9876543211', lastDonationDate: '2026-04-20', donationCount: 5, status: 'Available', cost: 500 },
+                { _id: '3', donorName: 'Amit Patel', donorId: 503, bloodType: 'AB+', phone: '+91 9876543212', lastDonationDate: '2026-06-01', donationCount: 3, status: 'Not Available', cost: 500 },
+                { _id: '4', donorName: 'Neha Sharma', donorId: 504, bloodType: 'A+', phone: '+91 9876543213', lastDonationDate: '2026-03-10', donationCount: 12, status: 'Available', cost: 500 },
+            ]);
+
+            const [searchTerm, setSearchTerm] = useState('');
+            const [filterBloodType, setFilterBloodType] = useState('');
+            const [showAddModal, setShowAddModal] = useState(false);
+
+            const [formData, setFormData] = useState({
+                donorName: '',
+                donorId: '',
+                bloodType: 'O+',
+                phone: '',
+                lastDonationDate: new Date().toISOString().split('T')[0],
+                donationCount: '1',
+                status: 'Available'
+            });
+
+            const bloodTypes = ['O+', 'O-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-'];
+
+            const filteredDonors = donors.filter(donor => {
+                const matchesSearch = donor.donorName.toLowerCase().includes(searchTerm.toLowerCase()) || donor.bloodType.includes(searchTerm);
+                const matchesBloodType = !filterBloodType || donor.bloodType === filterBloodType;
+                return matchesSearch && matchesBloodType;
+            });
+
+            const handleAddDonor = (e) => {
+                e.preventDefault();
+                if (!formData.donorName || !formData.donorId) return;
+
+                const newDonor = {
+                    _id: String(Date.now()),
+                    donorName: formData.donorName,
+                    donorId: Number(formData.donorId),
+                    bloodType: formData.bloodType,
+                    phone: formData.phone,
+                    lastDonationDate: formData.lastDonationDate,
+                    donationCount: Number(formData.donationCount),
+                    status: formData.status,
+                    cost: 500
+                };
+
+                setDonors([newDonor, ...donors]);
+                setShowAddModal(false);
+                setFormData({
+                    donorName: '',
+                    donorId: '',
+                    bloodType: 'O+',
+                    phone: '',
+                    lastDonationDate: new Date().toISOString().split('T')[0],
+                    donationCount: '1',
+                    status: 'Available'
+                });
+            };
+
+            const handleDeleteDonor = (id) => {
+                setDonors(prev => prev.filter(d => d._id !== id));
+            };
+
+            return (
+                <div className="space-y-6 p-8">
+                    <div className="flex justify-between items-center">
+                        <div>
+                            <h2 className="text-3xl font-bold text-slate-800">🩸 Blood Donor Registry</h2>
+                            <p className="text-slate-500 mt-2">Manage blood donors with affordable costs - Only ₹500 per donation</p>
+                        </div>
+                        <button 
+                            onClick={() => setShowAddModal(true)}
+                            className="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 rounded-lg flex items-center gap-2 transition"
+                        >
+                            <i className="fas fa-plus"></i> Add Blood Donor
+                        </button>
+                    </div>
+
+                    {/* Search & Filter */}
+                    <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-4">
+                        <div className="flex items-center flex-1 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">
+                            <i className="fas fa-search text-slate-400 mr-2"></i>
+                            <input 
+                                type="text"
+                                placeholder="Search by donor name or blood type..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="bg-transparent flex-1 text-sm focus:outline-none w-full"
+                            />
+                        </div>
+
+                        <select
+                            value={filterBloodType}
+                            onChange={(e) => setFilterBloodType(e.target.value)}
+                            className="bg-slate-50 border border-slate-200 px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 focus:outline-none"
+                        >
+                            <option value="">All Blood Types</option>
+                            {bloodTypes.map(bt => (
+                                <option key={bt} value={bt}>{bt}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* Donors Grid */}
+                    {filteredDonors.length === 0 ? (
+                        <div className="bg-white rounded-xl border border-slate-200 py-16 text-center text-slate-400">
+                            <i className="fas fa-droplet text-5xl mb-4 text-slate-300"></i>
+                            <p className="text-lg font-semibold">No blood donors found.</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                            {filteredDonors.map((donor) => (
+                                <div key={donor._id} className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all">
+                                    <div className="p-5 bg-gradient-to-r from-red-50 to-pink-50 border-b border-slate-100">
+                                        <div className="flex justify-between items-start mb-3">
+                                            <span className="blood-type-badge">{donor.bloodType}</span>
+                                        </div>
+                                        <h3 className="font-bold text-slate-950 text-lg">{donor.donorName}</h3>
+                                        <p className="text-xs text-slate-500 font-semibold">Donor ID: #{donor.donorId}</p>
+                                    </div>
+
+                                    <div className="p-5 space-y-3 text-sm text-slate-600">
+                                        <div>
+                                            <span className="text-xs text-slate-400 font-bold uppercase">Contact</span>
+                                            <p className="font-mono text-slate-700 font-semibold">{donor.phone}</p>
+                                        </div>
+
+                                        <div>
+                                            <span className="text-xs text-slate-400 font-bold uppercase">Last Donation</span>
+                                            <p className="font-semibold text-slate-700">{donor.lastDonationDate}</p>
+                                        </div>
+
+                                        <div className="bg-slate-50 border border-slate-200 rounded-lg p-3 flex justify-between">
+                                            <div>
+                                                <span className="text-xs text-slate-400 font-bold uppercase block">Total Donations</span>
+                                                <span className="font-bold text-slate-800 text-lg">{donor.donationCount}</span>
+                                            </div>
+                                            <div>
+                                                <span className="text-xs text-slate-400 font-bold uppercase block">Cost (₹)</span>
+                                                <span className="font-bold text-slate-800 text-lg">{donor.cost}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="px-5 py-3.5 bg-white border-t border-slate-100 flex items-center justify-between">
+                                        <div className="badge-available">
+                                            {donor.status === 'Available' ? (
+                                                <>
+                                                    <i className="fas fa-check-circle text-emerald-500"></i>
+                                                    <span className="text-emerald-600 font-semibold">Available</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <i className="fas fa-exclamation-circle text-amber-500"></i>
+                                                    <span className="text-amber-600 font-semibold">Not Available</span>
+                                                </>
+                                            )}
+                                        </div>
+                                        <button
+                                            onClick={() => handleDeleteDonor(donor._id)}
+                                            className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                                            title="Delete donor"
+                                        >
+                                            <i className="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* Add Modal */}
+                    {showAddModal && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4">
+                            <div className="bg-white rounded-xl shadow-xl w-full max-w-md border border-slate-200 overflow-hidden">
+                                <div className="bg-red-600 text-white px-6 py-4 flex items-center justify-between">
+                                    <h3 className="font-bold text-lg">Add Blood Donor</h3>
+                                    <button 
+                                        onClick={() => setShowAddModal(false)} 
+                                        className="text-slate-200 hover:text-white"
+                                    >
+                                        <i className="fas fa-times text-xl"></i>
+                                    </button>
+                                </div>
+
+                                <form onSubmit={handleAddDonor} className="p-6 space-y-4">
+                                    <div>
+                                        <label className="block text-slate-500 uppercase font-bold text-xs mb-1">Donor Name *</label>
+                                        <input 
+                                            type="text"
+                                            required
+                                            value={formData.donorName}
+                                            onChange={(e) => setFormData({ ...formData, donorName: e.target.value })}
+                                            className="w-full text-sm bg-slate-50 border border-slate-200 p-2.5 rounded-lg focus:ring-2 focus:ring-red-600 focus:outline-none"
+                                            placeholder="e.g. Rajesh Kumar"
+                                        />
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-slate-500 uppercase font-bold text-xs mb-1">Donor ID *</label>
+                                            <input 
+                                                type="number"
+                                                required
+                                                value={formData.donorId}
+                                                onChange={(e) => setFormData({ ...formData, donorId: e.target.value })}
+                                                className="w-full text-sm bg-slate-50 border border-slate-200 p-2.5 rounded-lg focus:ring-2 focus:ring-red-600 focus:outline-none"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-slate-500 uppercase font-bold text-xs mb-1">Blood Type *</label>
+                                            <select 
+                                                value={formData.bloodType}
+                                                onChange={(e) => setFormData({ ...formData, bloodType: e.target.value })}
+                                                className="w-full text-sm bg-slate-50 border border-slate-200 p-2.5 rounded-lg focus:ring-2 focus:ring-red-600 focus:outline-none"
+                                            >
+                                                {bloodTypes.map(bt => (
+                                                    <option key={bt} value={bt}>{bt}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-slate-500 uppercase font-bold text-xs mb-1">Phone Number</label>
+                                        <input 
+                                            type="text"
+                                            value={formData.phone}
+                                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                            className="w-full text-sm bg-slate-50 border border-slate-200 p-2.5 rounded-lg focus:ring-2 focus:ring-red-600 focus:outline-none"
+                                            placeholder="+91 9876543210"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-slate-500 uppercase font-bold text-xs mb-1">Last Donation Date</label>
+                                        <input 
+                                            type="date"
+                                            value={formData.lastDonationDate}
+                                            onChange={(e) => setFormData({ ...formData, lastDonationDate: e.target.value })}
+                                            className="w-full text-sm bg-slate-50 border border-slate-200 p-2.5 rounded-lg focus:ring-2 focus:ring-red-600 focus:outline-none"
+                                        />
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-slate-500 uppercase font-bold text-xs mb-1">Total Donations</label>
+                                            <input 
+                                                type="number"
+                                                value={formData.donationCount}
+                                                onChange={(e) => setFormData({ ...formData, donationCount: e.target.value })}
+                                                className="w-full text-sm bg-slate-50 border border-slate-200 p-2.5 rounded-lg focus:ring-2 focus:ring-red-600 focus:outline-none"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-slate-500 uppercase font-bold text-xs mb-1">Status</label>
+                                            <select 
+                                                value={formData.status}
+                                                onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                                                className="w-full text-sm bg-slate-50 border border-slate-200 p-2.5 rounded-lg focus:ring-2 focus:ring-red-600 focus:outline-none"
+                                            >
+                                                <option value="Available">Available</option>
+                                                <option value="Not Available">Not Available</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div className="pt-4 border-t border-slate-100 flex items-center justify-end space-x-3">
+                                        <button 
+                                            type="button" 
+                                            onClick={() => setShowAddModal(false)}
+                                            className="px-4 py-2 border border-slate-200 text-slate-500 rounded-lg text-sm hover:bg-slate-50"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button 
+                                            type="submit"
+                                            className="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-sm"
+                                        >
+                                            Add Donor
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Main App
+        function App() {
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+                    {/* Header */}
+                    <header className="bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg">
+                        <div className="container mx-auto px-4 py-6">
+                            <h1 className="text-4xl font-bold flex items-center gap-3">
+                                <i className="fas fa-hospital"></i>
+                                Nithin Hospital Management System
+                            </h1>
+                            <p className="text-blue-100 mt-2">Blood Donor Registry - Comprehensive Healthcare Solution</p>
+                        </div>
+                    </header>
+
+                    {/* Main Content */}
+                    <main className="container mx-auto py-8 px-4">
+                        <BloodDonorTab />
+                    </main>
+
+                    {/* Footer */}
+                    <footer className="bg-slate-900 text-slate-400 border-t border-slate-800 mt-12">
+                        <div className="container mx-auto px-4 py-8">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                <div>
+                                    <h3 className="text-white font-bold mb-3">About</h3>
+                                    <p className="text-sm">Comprehensive hospital management system with blood donor registry and affordable donation costs.</p>
+                                </div>
+                                <div>
+                                    <h3 className="text-white font-bold mb-3">Features</h3>
+                                    <ul className="text-sm space-y-1">
+                                        <li>🩸 Blood Donor Registry</li>
+                                        <li>💰 Low Cost - ₹500 per donation</li>
+                                        <li>📱 Easy Search & Filter</li>
+                                        <li>✅ Track Availability</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 className="text-white font-bold mb-3">Contact</h3>
+                                    <ul className="text-sm space-y-1">
+                                        <li>📧 admin@hospital.com</li>
+                                        <li>📞 +1 (555) 911-3000</li>
+                                        <li>🏥 Nithin Hospital</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="border-t border-slate-800 mt-8 pt-8 text-center text-sm">
+                                <p>&copy; 2026 Nithin Hospital Management System. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        // Render
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>
